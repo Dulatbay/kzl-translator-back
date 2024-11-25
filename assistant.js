@@ -13,7 +13,7 @@ class Assistant {
     static assistant = null
     static thread = null;
 
-    async #getAssistant() {
+    async getAssistant() {
         if (!Assistant.assistant)
             Assistant.assistant = openai.beta.assistants.retrieve(assistantId)
         return Assistant.assistant;
@@ -27,7 +27,7 @@ class Assistant {
 
     async sendMessage(msg) {
         const thread = await this.#getThread();
-        const assistant = await this.#getAssistant();
+        const assistant = await this.getAssistant();
 
         console.log('Assistant fetched', assistant);
         console.log('Thread fetched', thread);
