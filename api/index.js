@@ -10,9 +10,12 @@ app.use(cors())
 let assistant = new Assistant();
 
 
-app.post('/translate', async (req, res) => {
+app.get('/translate', async (req, res) => {
     try {
-        const {msg} = req.body
+        const {msg} = req.query
+
+        console.log(req);
+        console.log(msg);
 
         const message = await assistant.sendMessage(msg)
 
@@ -63,4 +66,4 @@ app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
 
-export default app;
+// export default app;
