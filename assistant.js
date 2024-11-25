@@ -61,7 +61,7 @@ class Assistant {
 
     async sendMessageWithStreaming(msg, res) {
         const thread = await this.#getThread();
-        const assistant = await this.#getAssistant();
+        const assistant = await this.getAssistant();
 
         console.log('Assistant fetched', assistant);
         console.log('Thread fetched', thread);
