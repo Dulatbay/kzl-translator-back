@@ -39,7 +39,7 @@ app.post('/translate-stream', async (req, res) => {
     }
 });
 
-app.post('/', async (req, res) => {
+app.get('/', async (req, res) => {
     try {
 
         res.send('hello world');
@@ -49,7 +49,7 @@ app.post('/', async (req, res) => {
     }
 });
 
-app.post('/assistant', async (req, res) => {
+app.get('/assistant', async (req, res) => {
     try {
 
         res.send(await assistant.getAssistant());
