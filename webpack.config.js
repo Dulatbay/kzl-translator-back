@@ -2,9 +2,9 @@ const path = require('path');
 
 module.exports = {
     mode: 'production',
-    entry: './index.js',
+    entry: './api/index.js',
     output: {
-        path: path.join(__dirname, 'dist'),
+        path: path.join(__dirname, 'public'),
         publicPath: '/',
         filename: 'final.js',
     },
