@@ -2,7 +2,9 @@ const express = require('express');
 const cors = require('cors');
 const Assistant = require("./assistant");
 const app = express();
-const PORT = 8080;
+const PORT = 8888;
+require('dotenv').config();
+
 
 app.use(express.json());
 app.use(cors())
@@ -10,14 +12,14 @@ app.use(cors())
 let assistant = new Assistant();
 
 
-app.get('/translate', async (req, res) => {
+app.post('/send-message', async (req, res) => {
     try {
-        const {msg} = req.query
+        const {msg, content} = req.body
 
         console.log(req);
         console.log(msg);
 
-        const message = await assistant.sendMessage(msg)
+        const message = await assistant.sendMessage(msg, content)
 
         if (!res)
             res.status(500).send('Something went wrong');

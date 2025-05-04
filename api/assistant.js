@@ -3,6 +3,9 @@ require('dotenv').config();
 
 // singleton
 const {OpenAI} = require('openai');
+
+console.log(process.env)
+
 const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY,
 });
@@ -25,19 +28,25 @@ class Assistant {
         return Assistant.thread;
     }
 
-    async sendMessage(msg) {
+    async sendMessage(msg, content) {
         const thread = await this.#getThread();
         const assistant = await this.getAssistant();
 
         console.log('Assistant fetched', assistant);
         console.log('Thread fetched', thread);
 
+        // Create the JSON message with content and question
+        const jsonMessage = {
+            content: content,  // This is the file content or the content you want to send
+            my_question: msg    // This is the user's question
+        };
 
+        // Now send the message with the JSON structure
         const message = await openai.beta.threads.messages.create(
             thread.id,
             {
                 role: "user",
-                content: msg
+                content: JSON.stringify(jsonMessage) // Send as JSON string
             }
         );
 
@@ -55,9 +64,10 @@ class Assistant {
 
             return messages.data[0];
         } else {
-            console.log(run)
+            console.log(run);
         }
     }
+
 
     async sendMessageWithStreaming(msg, res) {
         const thread = await this.#getThread();
